@@ -1,8 +1,6 @@
 # go-url
 
-纯 Go 标准库实现的 URL 小工具，处理日常会遇到的小事：编码、解码、取域名、算短链哈希。
-
-## 编译运行
+URL 的几个常见处理：编码、解码、取域名、算短链哈希。
 
 ```powershell
 go run . encode "https://example.com/搜索?q=go 语言"
@@ -12,7 +10,7 @@ go run . hash "https://example.com/abc"
 go run . info "https://example.com/文章?title=hello"
 ```
 
-## 子命令
+子命令：
 
 | 命令 | 说明 |
 |------|------|
@@ -22,10 +20,10 @@ go run . info "https://example.com/文章?title=hello"
 | `hash <url>` | 用 sha1 取前 8 位当短链指纹 |
 | `info <url>` | 一次给出编码后 / 域名 / 哈希 |
 
-## 设计要点
+实现上几个点：
 
 - 编码解码直接用 `net/url` 的 `QueryEscape` / `QueryUnescape`，和浏览器地址栏行为一致。
 - 域名提取走 `url.Parse` 的 `Hostname()`，比自己切字符串稳。
 - `hash` 用 `crypto/sha1` 取前 8 位十六进制，仅作指纹用途，不保证不冲突。
 
-适合写脚本时顺手处理 URL，比如从一堆链接里批量抽域名。
+写脚本顺手处理 URL 时能用上，比如从一堆链接里批量抽域名。
